@@ -17,7 +17,6 @@ public class PersonServiceImpl implements PersonService {
 
     private final PersonRepository personRepository;
 
-
     @Override
     @Transactional
     public Person save(PersonDetailsCreateDto personDetailsCreateDto) {
@@ -32,7 +31,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     @Transactional
     public Person update(Long personId, PersonDetailsUpdateDto personDetailsCreateDto) {
-        Person person = personRepository.findById(personId).orElseThrow(() -> new RuntimeException("Person not found"));
+        Person person = this.findById(personId);
 
         if (personDetailsCreateDto.name().isPresent()) {
             person.setName(personDetailsCreateDto.name().get());

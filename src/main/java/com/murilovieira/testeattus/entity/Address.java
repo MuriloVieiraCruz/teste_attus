@@ -21,8 +21,8 @@ public class Address {
     private Long id;
 
     @NotBlank
-    @Column(name = "ds_logradouro", nullable = false)
-    private String logradouro;
+    @Column(name = "ds_street", nullable = false)
+    private String street;
 
     @NotBlank
     @Column(name = "ds_cep", nullable = false)
@@ -43,4 +43,8 @@ public class Address {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "ds_address_type", nullable = false)
     private AddressType addressType;
+
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    private Person person;
 }
