@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: "testeattus"
+  datasource:
+    url: jdbc:postgresql://localhost:5434/attusdb
+    username: postgres
+    password: post
+    pool:
+      max-size: 10
+      initial-size: 7
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+    hibernate:
+      ddl-auto: update
