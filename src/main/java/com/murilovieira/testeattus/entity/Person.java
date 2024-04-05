@@ -15,11 +15,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Data
 @Builder
+@SequenceGenerator(name = "person_sequence", sequenceName = "sq_tb_person", allocationSize = 1)
 @Table(name = "tb_person")
 public class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_sequence")
     private Long id;
 
     @NotBlank
