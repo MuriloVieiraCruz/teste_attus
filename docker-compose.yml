@@ -1,0 +1,42 @@
+version: "3.5"
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: post
+      POSTGRES_DB: attusdb
+    command: "postgres -c synchronous_commit=0 -c full_page_writes=0"
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    deploy:
+      resources:
+        limits:
+          cpus: "0.40"
+          memory: "300MB"
+    networks:
+      - attusnwrk
+
+  api01:
+    build: .
+    container_name: attus_container
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_APPLICATION_NAME: "attus"
+    depends_on:
+      - db
+    deploy:
+      resources:
+        limits:
+          cpus: "0.10"
+          memory: "200MB"
+    networks:
+      - attusnwrk
+
+networks:
+  attusnwrk:
+    driver: bridge

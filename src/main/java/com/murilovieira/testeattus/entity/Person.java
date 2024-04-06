@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,11 +25,12 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_sequence")
     private Long id;
 
-    @NotBlank(message = "Name is mandatory")
+    @NotBlank(message = "Name is required")
     @Column(name = "nm_name", nullable = false)
+    @Size(min = 3, max = 100, message = "Name must be between 3 and 60 characters")
     private String name;
 
-    @NotNull(message = "Birth date is mandatory")
+    @NotNull(message = "Birth date is required")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone = "GMT")
     @Column(name = "dt_birth_date", nullable = false)
     private LocalDate birthDate;
