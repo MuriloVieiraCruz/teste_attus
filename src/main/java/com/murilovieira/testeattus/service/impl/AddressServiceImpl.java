@@ -14,6 +14,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.function.Consumer;
+
 @Service
 @RequiredArgsConstructor
 public class AddressServiceImpl implements AddressService {
@@ -50,30 +53,16 @@ public class AddressServiceImpl implements AddressService {
         Address addressSaved = this.findById(addressId);
         findPerson(addressDetailsUpdateDto.personId());
 
-        if (addressDetailsUpdateDto.street().isPresent()) {
-            addressSaved.setStreet(addressDetailsUpdateDto.street().get());
-        }
+        updateField(addressDetailsUpdateDto.street(), addressSaved::setStreet);
+        updateField(addressDetailsUpdateDto.cep(), addressSaved::setCep);
+        updateField(addressDetailsUpdateDto.number(), addressSaved::setNumber);
+        updateField(addressDetailsUpdateDto.city(), addressSaved::setCity);
+        updateField(addressDetailsUpdateDto.state(), addressSaved::setState);
 
-        if (addressDetailsUpdateDto.cep().isPresent()) {
-            addressSaved.setCep(addressDetailsUpdateDto.cep().get());
-        }
-
-        if (addressDetailsUpdateDto.number().isPresent()) {
-            addressSaved.setNumber(addressDetailsUpdateDto.number().get());
-        }
-
-        if (addressDetailsUpdateDto.city().isPresent()) {
-            addressSaved.setCity(addressDetailsUpdateDto.city().get());
-        }
-
-        if (addressDetailsUpdateDto.state().isPresent()) {
-            addressSaved.setState(addressDetailsUpdateDto.state().get());
-        }
-
-        if (addressDetailsUpdateDto.addressType().isPresent()) {
-            changeOtherAddressType(addressId, addressDetailsUpdateDto.addressType().get());
-            addressSaved.setAddressType(addressDetailsUpdateDto.addressType().get());
-        }
+        addressDetailsUpdateDto.addressType().ifPresent(type -> {
+            changeOtherAddressType(addressId, type);
+            addressSaved.setAddressType(type);
+        });
 
         return addressRepository.save(addressSaved);
     }
@@ -101,5 +90,9 @@ public class AddressServiceImpl implements AddressService {
 
     private Person findPerson(Long personId) {
         return personRepository.findById(personId).orElseThrow(() -> new RuntimeException("Person not found"));
+    }
+
+    private <T> void updateField(Optional<T> value, Consumer<T> setter) {
+        value.ifPresent(setter);
     }
 }

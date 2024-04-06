@@ -7,24 +7,24 @@ import jakarta.validation.constraints.NotNull;
 
 public record AddressDetailsCreateDto(
 
-        @NotBlank
+        @NotBlank(message = "Street is required")
         String street,
 
-        @NotBlank
+        @NotBlank(message = "Cep is required")
         String cep,
 
-        @NotBlank
+        @NotBlank(message = "Number is required")
         String number,
 
-        @NotBlank
+        @NotBlank(message = "City is required")
         String city,
 
-        @NotBlank
+        @NotBlank(message = "State is required")
         String state,
 
-        @NotNull
+        @NotNull(message = "Address type is required")
         AddressType addressType,
 
-        @NotNull
+        @NotNull(message = "Person id is required")
         Long personId) {
 }

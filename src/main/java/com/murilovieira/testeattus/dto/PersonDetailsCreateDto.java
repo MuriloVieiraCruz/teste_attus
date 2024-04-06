@@ -7,9 +7,9 @@ import java.time.LocalDate;
 
 public record PersonDetailsCreateDto(
 
-        @NotBlank
+        @NotBlank(message = "Name is required")
         String name,
 
-        @NotNull
+        @NotNull(message = "Birth date is required")
         LocalDate birthDate) {
 }

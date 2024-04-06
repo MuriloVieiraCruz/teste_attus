@@ -3,6 +3,7 @@ package com.murilovieira.testeattus.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,10 +24,11 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_sequence")
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Name is mandatory")
     @Column(name = "nm_name", nullable = false)
     private String name;
 
+    @NotNull(message = "Birth date is mandatory")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone = "GMT")
     @Column(name = "dt_birth_date", nullable = false)
     private LocalDate birthDate;

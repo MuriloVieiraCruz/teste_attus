@@ -19,6 +19,6 @@ public record AddressDetailsUpdateDto(
 
         Optional<AddressType> addressType,
 
-        @NotNull
+        @NotNull(message = "Person id is required")
         Long personId) {
 }
