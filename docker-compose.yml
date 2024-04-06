@@ -12,11 +12,6 @@ services:
       - "5434:5432"
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-    deploy:
-      resources:
-        limits:
-          cpus: "0.40"
-          memory: "300MB"
     networks:
       - attusnwrk
 
@@ -29,11 +24,6 @@ services:
       SPRING_APPLICATION_NAME: "attus"
     depends_on:
       - db
-    deploy:
-      resources:
-        limits:
-          cpus: "0.10"
-          memory: "200MB"
     networks:
       - attusnwrk
 

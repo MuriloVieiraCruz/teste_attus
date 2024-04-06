@@ -69,7 +69,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public Address findById(Long addressId) {
-        return addressRepository.findById(addressId).orElseThrow(() -> new RuntimeException("Address not found"));
+        return addressRepository.findById(addressId).orElseThrow(() -> new IllegalArgumentException("Address not found"));
     }
 
     @Override
@@ -89,7 +89,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     private Person findPerson(Long personId) {
-        return personRepository.findById(personId).orElseThrow(() -> new RuntimeException("Person not found"));
+        return personRepository.findById(personId).orElseThrow(() -> new IllegalArgumentException("Person not found"));
     }
 
     private <T> void updateField(Optional<T> value, Consumer<T> setter) {

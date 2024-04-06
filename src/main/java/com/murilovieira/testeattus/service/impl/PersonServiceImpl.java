@@ -46,7 +46,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person findById(Long personId) {
-        return personRepository.findById(personId).orElseThrow(() -> new RuntimeException("Person not found"));
+        return personRepository.findById(personId).orElseThrow(() -> new IllegalArgumentException("The person related to the address does not exist"));
     }
 
     @Override
