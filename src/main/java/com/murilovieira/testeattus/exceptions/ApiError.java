@@ -1,0 +1,35 @@
+package com.murilovieira.testeattus.exceptions;
+
+public enum ApiError {
+	
+	INVALID_BODY("001"),
+	INVALID_FORMAT("002"),
+	CONDITION_VIOLATED("003"),
+	INVALID_PARAMETER("004"),
+	RULE_ERROR("005"),
+	PRECONDITION_REQUIRED("006"),
+	INVALID_TYPE_PARAMETER("007"),
+	HTTP_METHOD_NOT_ALLOWED("008"),
+	PARAMETER_REQUIRED("009"),
+	REGISTER_NOT_FOUND("010"),
+	INVALID_TOKEN("011"),
+	INVALID_CONVERSION("012"),
+	INVALID_INTEGRATION("013"),
+	ACCESS_DENIED("014"),
+	WRONG_CREDENTIALS("015"),
+	AUTHENTICATION_INTERNAL_ERROR("016"),
+	TOKEN_EXPIRED("017"),
+	TOKEN_UNKNOWN("018"),
+	INVALID_FIELD("019");
+	
+	private final String code;
+	
+	private ApiError(String code){
+		this.code = code;
+	}
+	
+	public String getCode() {
+		return code;
+	}
+	
+}

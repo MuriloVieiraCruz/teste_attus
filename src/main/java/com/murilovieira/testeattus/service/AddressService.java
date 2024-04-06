@@ -15,8 +15,6 @@ public interface AddressService {
 
     public Address update(Long addressId, AddressDetailsUpdateDto addressDetailsUpdateDto);
 
-    public Address updateAddressType(Long addressId, AddressType addressType);
-
     public Address findById(Long addressId);
 
     public Page<Address> listBy(Long personId,Pageable pagination);

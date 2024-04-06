@@ -8,6 +8,7 @@ import com.murilovieira.testeattus.entity.enums.AddressType;
 import com.murilovieira.testeattus.repository.AddressRepository;
 import com.murilovieira.testeattus.repository.PersonRepository;
 import com.murilovieira.testeattus.service.AddressService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +23,7 @@ public class AddressServiceImpl implements AddressService {
     private final PersonRepository personRepository;
 
     @Override
+    @Transactional
     public Address save(AddressDetailsCreateDto addressDetailsCreateDto) {
 
         Person personFound = findPerson(addressDetailsCreateDto.personId());
@@ -36,13 +38,13 @@ public class AddressServiceImpl implements AddressService {
                 .person(personFound)
                 .build();
 
-        Address addressSaved = addressRepository.save(newAddress);
-        changeOtherAddressType(addressSaved.getId(), addressSaved.getAddressType());
+        changeOtherAddressType(personFound.getId(), newAddress.getAddressType());
 
-        return addressSaved;
+        return addressRepository.save(newAddress);
     }
 
     @Override
+    @Transactional
     public Address update(Long addressId, AddressDetailsUpdateDto addressDetailsUpdateDto) {
 
         Address addressSaved = this.findById(addressId);
@@ -74,14 +76,6 @@ public class AddressServiceImpl implements AddressService {
         }
 
         return addressRepository.save(addressSaved);
-    }
-
-    @Override
-    public Address updateAddressType(Long addressId, AddressType addressType) {
-        Address addressSaved = this.findById(addressId);
-        addressSaved.setAddressType(addressType);
-        changeOtherAddressType(addressId, addressType);
-        return addressSaved;
     }
 
     @Override
