@@ -5,7 +5,7 @@ spring:
   application:
     name: "testeattus"
   datasource:
-    url: jdbc:postgresql://db:5432/attusdb
+    url: jdbc:postgresql://localhost:5434/attusdb
     username: postgres
     password: post
     pool:
