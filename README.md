@@ -43,6 +43,11 @@ url: jdbc:postgresql://db:5432/attusdb
 docker compose up -d
 ```
 
+## Collection do Postman com os casos de teste:
+
+[collection_postman.zip](https://github.com/MuriloVieiraCruz/teste_attus/files/14896833/collection_postman.zip)
+
+
 # Autores
 
 [<img src="https://avatars.githubusercontent.com/u/113257963?v=4" width=115><br><sub>Murilo Vieira Cruz</sub>](https://github.com/MuriloVieiraCruz)
